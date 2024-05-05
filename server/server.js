@@ -33,6 +33,14 @@ app.get('/products', async (req, res) => {
     }
 })
 
+app.get('/products/filter', async (req, res) => {
+    try {
+        
+    } catch (error) {
+
+    }
+})
+
 app.get('/products/:id', async(req, res) => {
     try {
         const response = await axios.get(API_URL + '/api/products/' + req.params.id);

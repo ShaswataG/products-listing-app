@@ -17,6 +17,26 @@ app.get('/api/products', (req, res) => {
     res.json(products);
 });
 
+app.get('/api/products/filter', (req, res) => {
+    let filteredProducts
+    // if (req.query.brand) {
+    //     filteredProducts = products.filter(product => product.brand === req.query.brand)
+    // }
+    // if (req.query.category) {
+    //     filteredProducts = products.filter(product => product.category === req.query.category)
+    // }
+    filteredProducts = products.filter(product => {
+        if (req.query.brand && req.query.category)
+            return (product.brand === req.query.brand && product.category === req.query.category)
+        else if (req.query.brand && !req.query.category)
+            return product.brand === req.query.brand
+        else (!req.query.brand && req.query.category)
+            return product.category == req.query.category
+    })
+    // console.log(filteredProducts)
+    res.json({ status: true, data: filteredProducts })
+})
+
 app.get('/api/products/:id', (req, res) => {
     const id = req.params.id;
     const foundIndex = products.findIndex(product => product.id === Number(id));
